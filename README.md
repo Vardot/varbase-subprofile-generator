@@ -21,6 +21,43 @@ MYPROFILE/
  - MY_SUB_PROFILE-project/
 ```
 
+For more custom settings change source or target by editing the settings.yml file: 
+
+### Source
+```
+source:
+  profile:
+    git_repository: git@github.com:Vardot/varbase_subprofile_basic.git
+    dev_branch:
+      name: 8.x-7.x
+      alias: 8.7.x-dev
+      label: 8.7.x
+  project:
+    git_repository: git@github.com:Vardot/varbase-subprofile-basic-project.git
+    dev_branch:
+      name: 8.x-7.x
+      alias: 8.7.x-dev
+      label: 8.7.x
+```
+
+### Target
+```
+target:
+  profile:
+    dev_branch:
+      name: 8.x-1.x
+      alias: 8.x-1.x
+      label: 8.1.x
+  project:
+    dev_branch:
+      name: 8.x-1.x
+      alias: 8.1.x-dev
+      label: 8.1.x
+```
+
+You may add more file renames or string replace items.
+
+
 After that you will need to push the generated profile and project template to
 https://github.com for example and submit them to https://packagist.org
 

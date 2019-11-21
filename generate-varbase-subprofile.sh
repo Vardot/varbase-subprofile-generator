@@ -1,10 +1,19 @@
 #!/bin/usr/env bash
 
+## Public Github Processor for Varbase Subprofile Generator
+
+
 current_path=$(pwd);
 target_path="${current_path}";
 user_name="$USER";
-
 subprofile_name="profilly"
+
+# Include Bash YAML library.
+. ${current_path}/libs/bash-yaml.sh
+
+# Load Generator settings.
+eval $(parse_yaml ${current_path}/settings.yml);
+
 
 # Grape the profile name argument.
 if [ ! -z "$1" ]; then
@@ -31,100 +40,102 @@ if [ ! -z "$2" ]; then
     target_path="$arg2";
   else
     echo "---------------------------------------------------------------------------";
-    echo "   Target directory is not valid or you do not have permission!            ";
-    echo "   Please, create the target directory, and provide the full target path   ";
-    echo "   For Example:";
+    echo " Target directory is not valid or you do not have permission!            ";
+    echo " Please, create the target directory, and provide the full target path   ";
+    echo "   For Example:                                                            ";
     echo "   $ bash generate-varbase-subprofile.sh "cv" "/var/www/html/products" -vvv";
     echo "---------------------------------------------------------------------------";
     exit 1;
   fi
 else
   echo "---------------------------------------------------------------------------";
-  echo "   As you did not provide any Target path                                  ";
-  echo "   New profiles will be generated in:                                      ";
-  echo "    ${current_path}                                                        ";
+  echo "   Target path was not provide                                             ";
+  echo "   Generating to ${current_path} :                                         ";
   echo "---------------------------------------------------------------------------";
 fi
 
-
+# =============================================================================
 # Create the target [Varbase Subprofile Basic] for the profile.
 # =============================================================================
 if [[ -d "${target_path}/$subprofile_name" ]]; then
  rm -rf ${target_path}/$subprofile_name ;
 fi
 
-git clone git@github.com:Vardot/varbase_subprofile_basic.git ${target_path}/${subprofile_name} ;
+# Get the sour profile.
+git clone --branch ${source_profile_dev_branch_name} ${source_profile_git_repository} ${target_path}/${subprofile_name} ;
 
 cd ${target_path}/${subprofile_name} ;
 rm -rf .git ;
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
 
-cd ${target_path}/${target_path}/${subprofile_name}/config/install
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
 
-cd ${target_path}/${subprofile_name}/configbit
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
+for profile_dir in "${profile_dir_list[@]}"
+do
 
-cd ${target_path}/${subprofile_name}/modules
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
+  profile_dir=${profile_dir/SUB_PROFILE_NAME/${subprofile_name}} ;
+  profile_dir=${profile_dir/SUB_PROFILE_NAME/${subprofile_name}} ;
+  cd ${target_path}/${subprofile_name}${profile_dir} ;
 
-cd ${target_path}/${subprofile_name}/modules/${subprofile_name}_demo
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
+  # Rename files.
+  for rename_file in "${rename_file_list[@]}"
+  do
+    rename "s/${rename_file}/${subprofile_name}/g" *
+  done
+done
 
-cd ${target_path}/${subprofile_name}/modules/${subprofile_name}_features
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
+cd ${target_path}/${subprofile_name} ;
+# Replace Strings.
+for replace_string in "${replace_string_list[@]}"
+do
+  grep -rl "${replace_string}" ${target_path}/${subprofile_name}/* | xargs sed -i "s/${replace_string}/${subprofile_name}/g"
+done
 
-cd ${target_path}/${subprofile_name}/modules/${subprofile_name}_homepage
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
+grep -rl "${source_profile_dev_branch_name}" * | xargs sed -i "s/${source_profile_dev_branch_name}/${target_profile_dev_branch_name}/g" ;
+grep -rl "${source_profile_dev_branch_alias}" * | xargs sed -i "s/${source_profile_dev_branch_alias}/${target_profile_dev_branch_alias}/g" ;
+grep -rl "${source_profile_dev_branch_label}" * | xargs sed -i "s/${source_profile_dev_branch_label}/${target_profile_dev_branch_label}/g" ;
 
-cd ${target_path}/${subprofile_name}/modules/${subprofile_name}_homepage/config/install
-rename "s/varbase_subprofile_basic/${subprofile_name}/g" *
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
 
 cd ${target_path}
 
+# =============================================================================
 # Create the target [Varbase Sub Profile Basic Project] for the profile.
 # =============================================================================
 if [[ -d "${target_path}/${subprofile_name}-project" ]]; then
   rm -rf ${target_path}/${subprofile_name}-project
 fi
 
-git clone git@github.com:Vardot/varbase-subprofile-basic-project.git ${target_path}/${subprofile_name}-project
+
+git clone --branch ${source_project_dev_branch_name} git@github.com:Vardot/varbase-subprofile-basic-project.git ${target_path}/${subprofile_name}-project
 
 cd ${target_path}/${subprofile_name}-project
 rm -rf .git
 
-grep -rl 'varbase_subprofile_basic' * | xargs sed -i "s/varbase_subprofile_basic/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic' * | xargs sed -i "s/Varbase Sub Profile Basic/${subprofile_name}/g"
-grep -rl 'Varbase Subprofile' * | xargs sed -i "s/Varbase Subprofile/${subprofile_name}/g"
-grep -rl 'Varbase Sub Profile Basic Project' * | xargs sed -i "s/Varbase Sub Profile Basic Project/${subprofile_name} project/g"
-grep -rl 'varbase-subprofile-basic-project' * | xargs sed -i "s/varbase-subprofile-basic-project/${subprofile_name}-project/g"
+for project_dir in "${project_dir_list[@]}"
+do
+
+  project_dir=${project_dir/SUB_PROFILE_NAME/${subprofile_name}} ;
+  project_dir=${project_dir/SUB_PROFILE_NAME/${subprofile_name}} ;
+  cd ${target_path}/${subprofile_name}${project_dir} ;
+
+  # Rename files.
+  for rename_file in "${rename_file_list[@]}"
+  do
+    rename "s/${rename_file}/${subprofile_name}/g" *
+  done
+done
+
+cd ${target_path}/${subprofile_name}-project
+# Replace Strings.
+for replace_string in "${replace_string_list[@]}"
+do
+  grep -rl "${replace_string}" ${target_path}/${subprofile_name}-project/* | xargs sed -i "s/${replace_string}/${subprofile_name}/g"
+done
+
+grep -rl "${source_project_dev_branch_name}" * | xargs sed -i "s/${source_project_dev_branch_name}/${target_project_dev_branch_name}/g" ;
+grep -rl "${source_project_dev_branch_alias}" * | xargs sed -i "s/${source_project_dev_branch_alias}/${target_project_dev_branch_alias}/g" ;
+grep -rl "${source_project_dev_branch_label}" * | xargs sed -i "s/${source_project_dev_branch_label}/${target_project_dev_branch_label}/g" ;
 
 
-## Processor: Public Github finished generating.
+
 echo "=========================================================================";
-echo "  Processor: Public Github finished generating                           ";
+echo "  Completed generated the ${subprofile_name} profile";
 echo "=========================================================================";

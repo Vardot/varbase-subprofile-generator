@@ -1,0 +1,46 @@
+source:
+  profile:
+    git_repository: git@github.com:Vardot/varbase_subprofile_basic.git
+    dev_branch:
+      name: 8.x-7.x
+      alias: 8.7.x-dev
+      label: 8.7.x
+  project:
+    git_repository: git@github.com:Vardot/varbase-subprofile-basic-project.git
+    dev_branch:
+      name: 8.x-7.x
+      alias: 8.7.x-dev
+      label: 8.7.x
+target:
+  profile:
+    dev_branch:
+      name: 8.x-1.x
+      alias: 8.x-1.x
+      label: 8.1.x
+  project:
+    dev_branch:
+      name: 8.x-1.x
+      alias: 8.1.x-dev
+      label: 8.1.x
+profile_dir_list:
+  - /
+  - /config/install
+  - /configbit
+  - /modules
+  - /modules/SUB_PROFILE_NAME_demo
+  - /modules/SUB_PROFILE_NAME_features
+  - /modules/SUB_PROFILE_NAME_features/SUB_PROFILE_NAME_homepage
+  - /modules/SUB_PROFILE_NAME_features/SUB_PROFILE_NAME_homepage/config/install
+project_dir_list:
+  - /
+rename_file_list:
+  - varbase_subprofile_basic
+  - varbase-subprofile-basic
+replace_string_list:
+  - varbase_subprofile_basic
+  - varbase-subprofile-basic
+  - Varbase Sub Profile Basic
+  - Varbase Subprofile
+  - Varbase Sub Profile Basic Project
+  - VARBASE_SUBPROFILE_BASIC
+  - varbase sub profile basic
