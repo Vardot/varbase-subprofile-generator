@@ -15,7 +15,7 @@ target:
   profile:
     dev_branch:
       name: 8.x-1.x
-      alias: 8.x-1.x
+      alias: 8.1.x-dev
       label: 8.1.x
   project:
     dev_branch:
