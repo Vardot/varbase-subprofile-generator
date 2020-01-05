@@ -2,15 +2,15 @@ source:
   profile:
     git_repository: git@github.com:Vardot/varbase_subprofile_basic.git
     dev_branch:
-      name: 8.x-7.x
-      alias: 8.7.x-dev
-      label: 8.7.x
+      name: 8.x-8.x
+      alias: 8.8.x-dev
+      label: 8.8.x
   project:
     git_repository: git@github.com:Vardot/varbase-subprofile-basic-project.git
     dev_branch:
-      name: 8.x-7.x
-      alias: 8.7.x-dev
-      label: 8.7.x
+      name: 8.x-8.x
+      alias: 8.8.x-dev
+      label: 8.8.x
 target:
   profile:
     dev_branch:
