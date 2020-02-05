@@ -27,6 +27,9 @@ profile_dir_list:
   - /config/install
   - /configbit
   - /modules
+  - /images
+  - /js
+  - /css
   - /modules/SUB_PROFILE_NAME_demo
   - /modules/SUB_PROFILE_NAME_features
   - /modules/SUB_PROFILE_NAME_features/SUB_PROFILE_NAME_homepage
@@ -44,3 +47,4 @@ replace_string_list:
   - Varbase Sub Profile Basic Project
   - VARBASE_SUBPROFILE_BASIC
   - varbase sub profile basic
+  - VarbaseSubProfileBasic
