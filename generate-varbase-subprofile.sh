@@ -40,9 +40,9 @@ if [ ! -z "$2" ]; then
     target_path="$arg2";
   else
     echo "---------------------------------------------------------------------------";
-    echo " Target directory is not valid or you do not have permission!            ";
-    echo " Please, create the target directory, and provide the full target path   ";
-    echo "   For Example:                                                            ";
+    echo " Target directory is not valid or you do not have permission!              ";
+    echo " Please, create the target directory, and provide the full target path     ";
+    echo "   Example:                                                                ";
     echo "   $ bash generate-varbase-subprofile.sh "cv" "/var/www/html/products" -vvv";
     echo "---------------------------------------------------------------------------";
     exit 1;

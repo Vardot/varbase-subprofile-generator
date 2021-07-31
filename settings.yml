@@ -2,26 +2,26 @@ source:
   profile:
     git_repository: git@github.com:Vardot/varbase_subprofile_basic.git
     dev_branch:
-      name: 8.x-8.x
-      alias: 8.8.x-dev
-      label: 8.8.x
+      name: 9.0.x
+      alias: 9.0.x-dev
+      label: 9.0.x
   project:
     git_repository: git@github.com:Vardot/varbase-subprofile-basic-project.git
     dev_branch:
-      name: 8.x-8.x
-      alias: 8.8.x-dev
-      label: 8.8.x
+      name: 9.0.x
+      alias: 9.0.x-dev
+      label: 9.0.x
 target:
   profile:
     dev_branch:
-      name: 8.x-1.x
-      alias: 8.1.x-dev
-      label: 8.1.x
+      name: 1.0.x
+      alias: 1.0.x-dev
+      label: 1.0.x
   project:
     dev_branch:
-      name: 8.x-1.x
-      alias: 8.1.x-dev
-      label: 8.1.x
+      name: 1.0.x
+      alias: 1.0.x-dev
+      label: 1.0.x
 profile_dir_list:
   - /
   - /config/install
