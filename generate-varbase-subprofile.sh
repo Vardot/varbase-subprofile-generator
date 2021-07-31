@@ -54,6 +54,27 @@ else
   echo "---------------------------------------------------------------------------";
 fi
 
+if ! [ -x "$(command -v sed)" ]; then
+  echo 'sed does not exist. Please install it.';
+  echo ' -------------------------------- ';
+  echo '  sudo apt install -y sed';
+  exit 1;
+fi
+
+if ! [ -x "$(command -v gawk)" ]; then
+  echo 'gawk does not exist. Please install it.';
+  echo ' -------------------------------- ';
+  echo '  sudo apt install -y gawk';
+  exit 1;
+fi
+
+if ! [ -x "$(command -v rename)" ]; then
+  echo 'rename does not exist. Please install it.';
+  echo ' -------------------------------- ';
+  echo '  sudo apt install -y rename';
+  exit 1;
+fi
+
 # =============================================================================
 # Create the target [Varbase Subprofile Basic] for the profile.
 # =============================================================================
